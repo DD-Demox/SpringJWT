@@ -24,8 +24,8 @@ public class SecurityConfiguration {
 	private UserAuthFilter userAuthFilter;
 	
 	public static final String[] ENDPOINTS_WITH_AUTH_NOT_REQUIRED= {
-		"user/login",
-		"users"
+		"/users/login",
+		"/users"
 	};
 	
 	public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
@@ -46,13 +46,13 @@ public class SecurityConfiguration {
 				.requestMatchers(ENDPOINTS_WITH_AUTH_NOT_REQUIRED).permitAll()
 				.requestMatchers(ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).authenticated()
 				.requestMatchers(ENDPOINTS_ADMIN).hasRole("ADMINISTRATOR")
-				.requestMatchers(ENDPOINTS_CUSTOMER).hasRole("Customer")
+				.requestMatchers(ENDPOINTS_CUSTOMER).hasRole("CUSTOMER")
 				.anyRequest().denyAll()
 				.and().addFilterBefore(userAuthFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
 	}
 	
-	 @Bean
+	@Bean
 	    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 	        return authenticationConfiguration.getAuthenticationManager();
 	    }

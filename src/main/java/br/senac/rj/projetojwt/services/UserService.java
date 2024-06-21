@@ -1,5 +1,6 @@
 package br.senac.rj.projetojwt.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,9 @@ public class UserService {
 		user.setPassword(securityConfiguration.passwordEncoder().encode(createUserDto.password()));
 		Role role = new Role();
 		role.setName(createUserDto.role());
-		user.getRoles().add(role);
+		List<Role> roles = new ArrayList<>();
+		roles.add(role);
+		user.setRoles(roles);
 		userRepository.save(user);
 		
 	}
